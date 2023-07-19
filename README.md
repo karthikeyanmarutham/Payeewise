@@ -1,4 +1,4 @@
-# payeewise
+# Payeewise
 Manage Your Budget Wisely with Payeewise.
 
 Manage the budget and transaction in you bank accounts / your payment apps.
@@ -8,8 +8,8 @@ Hello, my name is [Karthikeyan Maruthachalam](https://www.linkedin.com/in/karthi
 
 ## Contributor
 ### Payeewise App
-Prnab Ray
-Karthikeyan Maruthachalam
+[Prnab Ray](https://github.com/iampranabray)
+[Karthikeyan Maruthachalam](https://github.com/karthikeyanmarutham)
 
 ### Payeewise UI / UX
 Azar
