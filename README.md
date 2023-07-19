@@ -41,5 +41,7 @@ This project contains many pub libs
 - [isar](https://pub.dev/packages/isar)
 - [shared_preferences](https://pub.dev/packages/shared_preferences)
 
+<!--
 ## Figma UI/UX
 [Payeewise](https://www.figma.com/file/BnVUkszis0Ppzy378tC0Bq/payeewise?type=design&node-id=0:1&mode=design&t=iem8YiBEgyAsyIoT-1)
+-->
