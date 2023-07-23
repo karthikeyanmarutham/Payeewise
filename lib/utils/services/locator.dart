@@ -16,7 +16,7 @@ import '../helpers/app_helpers.dart';
 
 var getIt = GetIt.I;
 
-setup() async {
+Future<void> setup() async {
   if (!getIt.isRegistered<AppHelpers>()) {
     // create appfolder for DB creation
     final dir = await getApplicationDocumentsDirectory();
