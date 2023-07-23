@@ -7,26 +7,23 @@
 /// * --------------------------------------------------------------------------- * ///
 
 import 'package:isar/isar.dart';
-part 'user_model.g.dart';
+part 'friends_model.g.dart';
 
 @collection
-class User {
+class FriendsModel {
   Id id = Isar.autoIncrement;
   String firstname;
   String lastname;
   int birthdate;
   String email;
-  String password;
-  int dateofjoin;
-  bool signinstatus;
-  User({
+  int createdDate;
+
+  FriendsModel({
     required this.id,
     required this.firstname,
     required this.lastname,
     required this.birthdate,
     required this.email,
-    required this.password,
-    required this.dateofjoin,
-    required this.signinstatus,
+    required this.createdDate
   });
 }
