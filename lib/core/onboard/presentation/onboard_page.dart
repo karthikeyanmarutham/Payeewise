@@ -1,15 +1,18 @@
 /// * --------------------------------------------------------------------------- * ///
-/// 
+///
 /// project name  : payeewise
 /// devloper name : karthikeyan maruthachalam
 /// created date  : July 18, 2023
-/// 
+///
 ///  * --------------------------------------------------------------------------- * ///
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:payeewise/assets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/onboard_bloc.dart';
+import '../widgets/onboard_widget.dart';
 
 @RoutePage()
 class OnboardPage extends StatelessWidget {
@@ -20,10 +23,11 @@ class OnboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // here setup db model
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: Center(
-        child: Image.asset(Assets.assets_images_logo_main_png, width: 200),
+      body: BlocProvider(
+        create: (_) => OnboardBloc()..add(FetchOnboardEvent()),
+        child: const OnboardWidget(),
       ),
     );
   }

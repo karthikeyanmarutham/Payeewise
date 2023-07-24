@@ -47,8 +47,13 @@ const AccountModelSchema = CollectionSchema(
       name: r'isActive',
       type: IsarType.bool,
     ),
-    r'themeName': PropertySchema(
+    r'isSignIn': PropertySchema(
       id: 6,
+      name: r'isSignIn',
+      type: IsarType.bool,
+    ),
+    r'themeName': PropertySchema(
+      id: 7,
       name: r'themeName',
       type: IsarType.string,
     )
@@ -90,7 +95,8 @@ void _accountModelSerialize(
   writer.writeLong(offsets[3], object.createdTime);
   writer.writeLong(offsets[4], object.expDate);
   writer.writeBool(offsets[5], object.isActive);
-  writer.writeString(offsets[6], object.themeName);
+  writer.writeBool(offsets[6], object.isSignIn);
+  writer.writeString(offsets[7], object.themeName);
 }
 
 AccountModel _accountModelDeserialize(
@@ -107,7 +113,8 @@ AccountModel _accountModelDeserialize(
     expDate: reader.readLong(offsets[4]),
     id: id,
     isActive: reader.readBool(offsets[5]),
-    themeName: reader.readString(offsets[6]),
+    isSignIn: reader.readBoolOrNull(offsets[6]) ?? false,
+    themeName: reader.readString(offsets[7]),
   );
   return object;
 }
@@ -132,6 +139,8 @@ P _accountModelDeserializeProp<P>(
     case 5:
       return (reader.readBool(offset)) as P;
     case 6:
+      return (reader.readBoolOrNull(offset) ?? false) as P;
+    case 7:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -682,6 +691,16 @@ extension AccountModelQueryFilter
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      isSignInEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isSignIn',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
       themeNameEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -901,6 +920,18 @@ extension AccountModelQuerySortBy
     });
   }
 
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByIsSignIn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSignIn', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByIsSignInDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSignIn', Sort.desc);
+    });
+  }
+
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByThemeName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'themeName', Sort.asc);
@@ -1003,6 +1034,18 @@ extension AccountModelQuerySortThenBy
     });
   }
 
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByIsSignIn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSignIn', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByIsSignInDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSignIn', Sort.desc);
+    });
+  }
+
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByThemeName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'themeName', Sort.asc);
@@ -1056,6 +1099,12 @@ extension AccountModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<AccountModel, AccountModel, QDistinct> distinctByIsSignIn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isSignIn');
+    });
+  }
+
   QueryBuilder<AccountModel, AccountModel, QDistinct> distinctByThemeName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1105,6 +1154,12 @@ extension AccountModelQueryProperty
   QueryBuilder<AccountModel, bool, QQueryOperations> isActiveProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isActive');
+    });
+  }
+
+  QueryBuilder<AccountModel, bool, QQueryOperations> isSignInProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isSignIn');
     });
   }
 

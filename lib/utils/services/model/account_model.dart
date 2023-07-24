@@ -19,6 +19,7 @@ class AccountModel {
    int expDate;
    String themeName;
    int createdTime;
+   bool isSignIn;
 
   AccountModel({
     required this.id,
@@ -29,5 +30,6 @@ class AccountModel {
     required this.expDate,
     required this.themeName,
     required this.createdTime,
+    this.isSignIn = false,
   });
 }
