@@ -20,15 +20,17 @@ class OnboardRepository {
       var locator = getIt.get<AppHelpers>();
 
       var isar = locator.db;
-      await isar.categoryModels.importJson([
-        {
-          "categoryName": "Bank",
-          "iconName": "bank",
-          "createdTime": DateTime.now().millisecondsSinceEpoch,
-        }
-      ]);
+      await isar.writeTxn(() async {
+        await isar.categoryModels.importJson([
+          {
+            "categoryName": "Bank",
+            "iconName": "bank",
+            "createdTime": DateTime.now().millisecondsSinceEpoch,
+          }
+        ]);
+      });
 
-      // completer.complete({"code": 200});
+      completer.complete({"code": 200});
     } catch (e) {
       completer.completeError(e);
     }

@@ -86,7 +86,7 @@ CategoryModel _categoryModelDeserialize(
     createdTime: reader.readLong(offsets[1]),
     iconName: reader.readString(offsets[2]),
     id: id,
-    isActive: reader.readBoolOrNull(offsets[3]) ?? true,
+    isActive: reader.readBoolOrNull(offsets[3]),
   );
   return object;
 }
@@ -105,7 +105,7 @@ P _categoryModelDeserializeProp<P>(
     case 2:
       return (reader.readString(offset)) as P;
     case 3:
-      return (reader.readBoolOrNull(offset) ?? true) as P;
+      return (reader.readBoolOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -590,7 +590,25 @@ extension CategoryModelQueryFilter
   }
 
   QueryBuilder<CategoryModel, CategoryModel, QAfterFilterCondition>
-      isActiveEqualTo(bool value) {
+      isActiveIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isActive',
+      ));
+    });
+  }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterFilterCondition>
+      isActiveIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isActive',
+      ));
+    });
+  }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterFilterCondition>
+      isActiveEqualTo(bool? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isActive',
@@ -786,7 +804,7 @@ extension CategoryModelQueryProperty
     });
   }
 
-  QueryBuilder<CategoryModel, bool, QQueryOperations> isActiveProperty() {
+  QueryBuilder<CategoryModel, bool?, QQueryOperations> isActiveProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isActive');
     });

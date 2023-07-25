@@ -13,8 +13,8 @@ import 'package:payeewise/config/routes/router.gr.dart';
 class RootRouter extends $RootRouter {
   @override
   List<AutoRoute> get routes => [
-        //OnboardRoute is generated as OnboardRoute because
-        //of the replaceInRouteName property
+        //OnboardRoute is generated as OnboardRoute because of the replaceInRouteName property
         AutoRoute(page: OnboardRoute.page, path: "/"),
+        AutoRoute(page: LoginRoute.page, path: "/login"),
       ];
 }

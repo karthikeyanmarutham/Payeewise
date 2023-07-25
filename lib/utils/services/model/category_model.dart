@@ -12,7 +12,7 @@ part 'category_model.g.dart';
 @collection
 class CategoryModel {
    Id id = Isar.autoIncrement;
-   bool isActive;
+   bool? isActive;
    String categoryName;
    String iconName;
    int createdTime;

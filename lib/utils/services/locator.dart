@@ -9,6 +9,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:payeewise/utils/services/model/account_model.dart';
+import 'package:payeewise/utils/services/model/category_model.dart';
+import 'package:payeewise/utils/services/model/friends_model.dart';
 import 'package:payeewise/utils/services/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,6 +28,9 @@ Future<void> setup() async {
     final isar = await Isar.open(
       [
         UserSchema,
+        CategoryModelSchema,
+        FriendsModelSchema,
+        AccountModelSchema,
       ],
       directory: dir.path,
     );
