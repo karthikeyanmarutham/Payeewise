@@ -24,7 +24,7 @@ class OnboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // here setup db model
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: BlocProvider(
         create: (_) => OnboardBloc()..add(FetchOnboardEvent()),
         child: const OnboardWidget(),

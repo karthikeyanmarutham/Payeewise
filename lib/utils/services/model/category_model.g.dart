@@ -36,6 +36,12 @@ const CategoryModelSchema = CollectionSchema(
       id: 3,
       name: r'isActive',
       type: IsarType.bool,
+    ),
+    r'payType': PropertySchema(
+      id: 4,
+      name: r'payType',
+      type: IsarType.byte,
+      enumMap: _CategoryModelpayTypeEnumValueMap,
     )
   },
   estimateSize: _categoryModelEstimateSize,
@@ -73,6 +79,7 @@ void _categoryModelSerialize(
   writer.writeLong(offsets[1], object.createdTime);
   writer.writeString(offsets[2], object.iconName);
   writer.writeBool(offsets[3], object.isActive);
+  writer.writeByte(offsets[4], object.payType.index);
 }
 
 CategoryModel _categoryModelDeserialize(
@@ -87,6 +94,9 @@ CategoryModel _categoryModelDeserialize(
     iconName: reader.readString(offsets[2]),
     id: id,
     isActive: reader.readBoolOrNull(offsets[3]),
+    payType:
+        _CategoryModelpayTypeValueEnumMap[reader.readByteOrNull(offsets[4])] ??
+            PayType.credit,
   );
   return object;
 }
@@ -106,10 +116,23 @@ P _categoryModelDeserializeProp<P>(
       return (reader.readString(offset)) as P;
     case 3:
       return (reader.readBoolOrNull(offset)) as P;
+    case 4:
+      return (_CategoryModelpayTypeValueEnumMap[
+              reader.readByteOrNull(offset)] ??
+          PayType.credit) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
+
+const _CategoryModelpayTypeEnumValueMap = {
+  'credit': 0,
+  'debit': 1,
+};
+const _CategoryModelpayTypeValueEnumMap = {
+  0: PayType.credit,
+  1: PayType.debit,
+};
 
 Id _categoryModelGetId(CategoryModel object) {
   return object.id;
@@ -616,6 +639,62 @@ extension CategoryModelQueryFilter
       ));
     });
   }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterFilterCondition>
+      payTypeEqualTo(PayType value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'payType',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterFilterCondition>
+      payTypeGreaterThan(
+    PayType value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'payType',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterFilterCondition>
+      payTypeLessThan(
+    PayType value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'payType',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterFilterCondition>
+      payTypeBetween(
+    PayType lower,
+    PayType upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'payType',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
 }
 
 extension CategoryModelQueryObject
@@ -676,6 +755,18 @@ extension CategoryModelQuerySortBy
       sortByIsActiveDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isActive', Sort.desc);
+    });
+  }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterSortBy> sortByPayType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'payType', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterSortBy> sortByPayTypeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'payType', Sort.desc);
     });
   }
 }
@@ -746,6 +837,18 @@ extension CategoryModelQuerySortThenBy
       return query.addSortBy(r'isActive', Sort.desc);
     });
   }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterSortBy> thenByPayType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'payType', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CategoryModel, CategoryModel, QAfterSortBy> thenByPayTypeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'payType', Sort.desc);
+    });
+  }
 }
 
 extension CategoryModelQueryWhereDistinct
@@ -774,6 +877,12 @@ extension CategoryModelQueryWhereDistinct
   QueryBuilder<CategoryModel, CategoryModel, QDistinct> distinctByIsActive() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'isActive');
+    });
+  }
+
+  QueryBuilder<CategoryModel, CategoryModel, QDistinct> distinctByPayType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'payType');
     });
   }
 }
@@ -807,6 +916,12 @@ extension CategoryModelQueryProperty
   QueryBuilder<CategoryModel, bool?, QQueryOperations> isActiveProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isActive');
+    });
+  }
+
+  QueryBuilder<CategoryModel, PayType, QQueryOperations> payTypeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'payType');
     });
   }
 }

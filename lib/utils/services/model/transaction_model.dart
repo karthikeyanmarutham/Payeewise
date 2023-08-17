@@ -5,65 +5,73 @@
 /// created date  : July 20,2023 11:27 PM
 ///
 /// * --------------------------------------------------------------------------- * ///
-///     
+
 import 'package:isar/isar.dart';
+part 'transaction_model.g.dart';
+
+enum PayType { credit, debit }
 
 @collection
 class TransactionModel {
+  Id id = Isar.autoIncrement;
   final List<Datum> data;
-
+  @enumerated
+  final PayType payType;
   TransactionModel({
     required this.data,
+    this.payType = PayType.credit,
   });
 }
 
 @embedded
 class Datum {
-  final List<Friend> friends;
-  final Bill bill;
+  List<Friend>? sharedFriends;
+  Bill? bill;
 
-  Datum({
-    required this.friends,
-    required this.bill,
-  });
+  // Datum({
+  //   required this.friends,
+  //   required this.bill,
+  // });
 }
 
 @embedded
 class Bill {
-  final int id;
-  final int date;
-  final String title;
-  final String description;
-  final double total;
-  final String billPhoto;
+  int? id;
+  int? date;
+  String? title;
+  String? description;
+  double? total;
+  String? billPhoto;
+  int? catId;
 
-  Bill({
-    required this.id,
-    required this.date,
-    required this.title,
-    required this.description,
-    required this.total,
-    required this.billPhoto,
-  });
+  // Bill({
+  //   required this.id,
+  //   required this.date,
+  //   required this.title,
+  //   required this.description,
+  //   required this.total,
+  //   required this.billPhoto,
+  // });
 }
 
 @embedded
 class Friend {
-  final String id;
-  final bool isPaid;
-  final double amount;
-  final String friendName;
-  final String emailId;
-  final int createdTime;
-  final int payment;
+  int? id;
+  bool? isPaid;
+  double? amount;
+  String? friendName;
+  String? emailId;
+  int? createdTime;
+  int? payment;
+  double? pendingPayment;
 
-  Friend({
-    required this.id,
-    required this.isPaid,
-    required this.amount,
-    required this.friendName,
-    required this.emailId,
-    required this.createdTime,
-    required this.payment,
-  });
+  // Friend({
+  //   required this.id,
+  //   required this.isPaid,
+  //   required this.amount,
+  //   required this.friendName,
+  //   required this.emailId,
+  //   required this.createdTime,
+  //   required this.payment,
+  // });
 }

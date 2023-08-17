@@ -30,9 +30,9 @@ class OnboardBloc extends Bloc<OnboardEvent, OnboardState> {
     emit(FetchOnboardInit());
     try {
       var res = await _repository.fetchData();
-
+      await Future.delayed(const Duration(seconds: 2));
       if (res["code"] == 200) {
-        OnboardModel model = OnboardModel();
+        OnboardModel model  = OnboardModel();
         emit(FetchOnboardLoaded(data: model));
       } else {
         emit(FetchOnboardFailed("somthing went to wrong"));

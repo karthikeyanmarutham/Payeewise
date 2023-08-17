@@ -16,12 +16,20 @@ class CategoryModel {
    String categoryName;
    String iconName;
    int createdTime;
+   @enumerated
+   PayType payType = PayType.credit;
 
    CategoryModel({
     required this.id,
     this.isActive = true,
     required this.categoryName,
     required this.iconName,
-    required this.createdTime
+    required this.createdTime,
+    required this.payType
    });
+}
+
+enum PayType {
+  credit,
+  debit
 }

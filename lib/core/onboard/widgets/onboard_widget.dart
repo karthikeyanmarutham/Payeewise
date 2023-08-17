@@ -20,15 +20,13 @@ class OnboardWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<OnboardBloc, OnboardState>(
       listener: (context, state) {
-        if(state is FetchOnboardLoaded){
+        if (state is FetchOnboardLoaded) {
           // redirect to login
-          context.navigateNamedTo(LoginRoute.name);
+          context.replaceRoute(const LoginRoute());
         }
       },
       child: Center(
