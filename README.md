@@ -9,7 +9,6 @@ Hello, my name is [Karthikeyan Maruthachalam](https://www.linkedin.com/in/karthi
 ## Contributor
 ### Payeewise App
 [Karthikeyan Maruthachalam](https://github.com/karthikeyanmarutham)
-[Pranab Ray](https://github.com/iampranabray)
 
 ### Payeewise UI / UX
 Azar
